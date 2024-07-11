@@ -1,8 +1,6 @@
 
+import 'package:commons/commons.dart';
 import 'package:commons_dependencies/commons_dependencies.dart';
-import 'package:commons_dependencies/generated/app_localizations.dart';
-import 'package:commons_dependencies/generated/app_localizations_en.dart';
-import 'package:commons_dependencies/generated/app_localizations_pt.dart';
 import 'package:core/app/app_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

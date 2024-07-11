@@ -1,7 +1,6 @@
 
-import 'package:commons/result_container.dart';
+import 'package:commons/commons.dart';
 import 'package:commons_dependencies/commons_dependencies.dart';
-import 'package:commons_dependencies/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
