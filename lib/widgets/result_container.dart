@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-
 class ResultContainer extends StatefulWidget {
-  const ResultContainer({Key? key}) : super(key: key);
+
+  const ResultContainer({super.key});
 
   @override
   ResultContainerState createState() => ResultContainerState();
@@ -18,7 +17,22 @@ class ResultContainer extends StatefulWidget {
   }
 }
 
-class ResultContainerState extends State<ResultContainer> {
+class ResultContainerState extends State<ResultContainer> with SingleTickerProviderStateMixin {
+
+  late AnimationController _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animation = animation();
+  }
+
+  @override
+  void dispose() {
+    _animation.dispose();
+    super.dispose();
+  }
+
   void refresh() {
     setState(() {});
   }
@@ -34,7 +48,14 @@ class ResultContainerState extends State<ResultContainer> {
               border: Border.all(),
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: const CircularProgressIndicator(),
+            child: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 3.0,
+                strokeAlign: CircularProgressIndicator.strokeAlignCenter,
+                backgroundColor: Colors.grey,
+                valueColor: _colorTween(),
+              ),
+            ),
           );
         } else {
           return Container(
@@ -48,7 +69,7 @@ class ResultContainerState extends State<ResultContainer> {
               children: [
                 Text(
                   searchProvider.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),
@@ -61,7 +82,7 @@ class ResultContainerState extends State<ResultContainer> {
                     },
                     child: Text(
                       searchProvider.link,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.blue,
                         decoration: TextDecoration.none,
                       ),
@@ -73,5 +94,19 @@ class ResultContainerState extends State<ResultContainer> {
         }
       },
     );
+  }
+  
+  Animation<Color?> _colorTween() {   
+    return ColorTween(
+      begin: Colors.deepPurpleAccent,
+      end: Colors.black
+    ).animate(_animation);
+  }
+
+  AnimationController animation() {
+    return AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
   }
 }
